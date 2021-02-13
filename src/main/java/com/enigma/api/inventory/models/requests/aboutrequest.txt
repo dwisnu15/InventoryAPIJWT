@@ -1,0 +1,13 @@
+Request class is a class which hold what kind of entities data is going to be sent to the controller.
+The class accepts json file which hold the corresponding entities data.
+
+first the client decides what kind of request is going to be made to an entity in the server (decide request method).
+
+then the client send the request which hold entity's metadata in a json file to the server (send request).
+
+the request will be mapped according to its method and the metadata will get parsed by the controller (request mapping).
+
+the parsed data is then mapped by its service handler according to the user-requested entity's type model
+or the set response. (map the sent data)
+after that, the mapped data is used to generate appropriate response (and message) in accordance to the response rules.
+(return response message)

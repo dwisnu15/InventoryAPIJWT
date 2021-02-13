@@ -1,0 +1,1 @@
+Search class is a class which hold some of the corresponding entities field to be used to search the entities.

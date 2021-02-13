@@ -1,0 +1,3 @@
+Response class is a class which hold what kind of data
+is going to be returned when the corresponding request is sent through the controller.
+Response usually mirrors its entity's field, in that every foreign key it holds is also going to be returned/displayed
