@@ -47,81 +47,81 @@ public class TransactionController {
 
    @Autowired
    private ModelMapper modelMapper;
+//to do
+//    @Operation(summary = "Add Item", description = "adding new Transaction to dbase")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Success"),
+//            @ApiResponse(responseCode = "500", description = "Internal server error",
+//                    content = @Content(array = @ArraySchema
+//                            (schema = @Schema(implementation = ResponseMessage.class))))
+//    })
+//    @PostMapping
+//    public ResponseMessage<TransactionResponse> add(@RequestBody TransactionRequest model) {
+//        //should add checker whether the requested item's quantities can be satisfied by the stock
+//        Transaction newTransaction = modelMapper.map(model, Transaction.class);
+//        newTransaction = service.save(newTransaction);
 
-   @Operation(summary = "Add Item", description = "adding new Transaction to dbase")
-   @ApiResponses(value = {
-           @ApiResponse(responseCode = "200", description = "Success"),
-           @ApiResponse(responseCode = "500", description = "Internal server error",
-                   content = @Content(array = @ArraySchema
-                           (schema = @Schema(implementation = ResponseMessage.class))))
-   })
-   @PostMapping
-   public ResponseMessage<TransactionResponse> add(@RequestBody TransactionRequest model) {
-       //should add checker whether the requested item's quantities can be satisfied by the stock
-       Transaction newTransaction = modelMapper.map(model, Transaction.class);
-       newTransaction = service.save(newTransaction);
-
-       TransactionResponse data = modelMapper.map(newTransaction, TransactionResponse.class);
-       return ResponseMessage.success(data);
-   }
-
-   @PutMapping("/{id}")
-   public ResponseMessage<TransactionResponse> edit(@PathVariable Integer id,
-                                          @RequestBody @Valid TransactionRequest model) {
-       Transaction edited = service.findById(id);
-       if (edited == null) {
-           throw new EntityNotFoundException();
-       }
-       modelMapper.map(model, edited);
-       edited = service.save(edited);
-       TransactionResponse data = modelMapper.map(edited, TransactionResponse.class);
-       return ResponseMessage.success(data);
-   }
-
-   @DeleteMapping("/{id}")
-   public ResponseMessage<TransactionResponse> removeById(@PathVariable Integer id) {
-       Transaction entity = service.removeById(id);
-       if (entity == null) {
-           throw  new EntityNotFoundException();
-       }
-       TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
-       return ResponseMessage.success(data);
-   }
-
-
-   @GetMapping("/{id}")
-   public ResponseMessage<TransactionResponse> findById(@PathVariable Integer id) {
-       Transaction entity = service.findById(id);
-       if (entity == null) {
-           throw new EntityNotFoundException();
-       }
-       TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
-       return ResponseMessage.success(data);
-   }
-
-//    @GetMapping
-//    public ResponseMessage<List<Transaction>> findAll() {
-//        List<Transaction> entities = service.findAll();
-//        return ResponseMessage.success(entities);
+//        TransactionResponse data = modelMapper.map(newTransaction, TransactionResponse.class);
+//        return ResponseMessage.success(data);
 //    }
 
-   @GetMapping
-   public ResponseMessage<PagedList<TransactionElement>> findAll(
-           @Valid TransactionSearch model
-   ) {
-       Transaction search = modelMapper.map(model, Transaction.class);
-       Page<Transaction> entitypage = service.findAll(search, model.getPage(), model.getSize(), model.getSort());
+//    @PutMapping("/{id}")
+//    public ResponseMessage<TransactionResponse> edit(@PathVariable Integer id,
+//                                           @RequestBody @Valid TransactionRequest model) {
+//        Transaction edited = service.findById(id);
+//        if (edited == null) {
+//            throw new EntityNotFoundException();
+//        }
+//        modelMapper.map(model, edited);
+//        edited = service.save(edited);
+//        TransactionResponse data = modelMapper.map(edited, TransactionResponse.class);
+//        return ResponseMessage.success(data);
+//    }
 
-       List<TransactionRequest> models = entitypage.stream().map(
-               e -> modelMapper.map(e, TransactionRequest.class))
-               .collect(Collectors.toList());
+//    @DeleteMapping("/{id}")
+//    public ResponseMessage<TransactionResponse> removeById(@PathVariable Integer id) {
+//        Transaction entity = service.removeById(id);
+//        if (entity == null) {
+//            throw  new EntityNotFoundException();
+//        }
+//        TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
+//        return ResponseMessage.success(data);
+//    }
 
-       PagedList<TransactionElement> data = new PagedList(
-               models,
-               entitypage.getNumber(),
-               entitypage.getSize(),
-               entitypage.getTotalElements());
 
-       return ResponseMessage.success(data);
-   }
+//    @GetMapping("/{id}")
+//    public ResponseMessage<TransactionResponse> findById(@PathVariable Integer id) {
+//        Transaction entity = service.findById(id);
+//        if (entity == null) {
+//            throw new EntityNotFoundException();
+//        }
+//        TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
+//        return ResponseMessage.success(data);
+//    }
+
+// //    @GetMapping
+// //    public ResponseMessage<List<Transaction>> findAll() {
+// //        List<Transaction> entities = service.findAll();
+// //        return ResponseMessage.success(entities);
+// //    }
+
+//    @GetMapping
+//    public ResponseMessage<PagedList<TransactionElement>> findAll(
+//            @Valid TransactionSearch model
+//    ) {
+//        Transaction search = modelMapper.map(model, Transaction.class);
+//        Page<Transaction> entitypage = service.findAll(search, model.getPage(), model.getSize(), model.getSort());
+
+//        List<TransactionRequest> models = entitypage.stream().map(
+//                e -> modelMapper.map(e, TransactionRequest.class))
+//                .collect(Collectors.toList());
+
+//        PagedList<TransactionElement> data = new PagedList(
+//                models,
+//                entitypage.getNumber(),
+//                entitypage.getSize(),
+//                entitypage.getTotalElements());
+
+//        return ResponseMessage.success(data);
+//    }
 }
